@@ -1,8 +1,11 @@
 package testes_relacionamentos_docker.demo.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "author_tb")
@@ -19,8 +22,12 @@ public class Author {
     @Column(nullable = false)
     String nationality;
 
+    @OneToMany(mappedBy = "author")
+    private List<Book> list = new ArrayList<>();
+
     public Author() {};
 
+    @JsonCreator
     public Author(Long id, String name, LocalDate birthDate, String nationality) {
         this.id = id;
         this.name = name;
